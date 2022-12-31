@@ -144,7 +144,7 @@ def main():
     episodes = 400000
     EPISILO = 1.0
     writer = SummaryWriter('./log/dqn')
-    TEST = True
+    TEST = False
     if TEST:
         dqn.load_model('./model/DQN.pt')
     print("Collecting Experience....")
