@@ -134,10 +134,6 @@ class DQN():
         batch_memory = self.memory.get(index=sample_index)
         b_s, b_a, b_r, b_ns = batch_memory
 
-        b_s = Variable(b_s)
-        b_a = Variable(b_a)
-        b_r = Variable(b_r)
-        b_ns = Variable(b_ns)
         # q_eval w.r.t the action in experience
         q_eval_test, _ = self.eval_net(b_s.cuda())
         # argmax axis = 0 means column , 1 means row
@@ -154,10 +150,8 @@ class DQN():
             q_update[iii] = q_next_numpy[iii, Q1_argmax[iii]]
 
         q_update = GAMMA * q_update
-        q_update = torch.FloatTensor(q_update)
 
-        variable11 = Variable(q_update)
-        q_target = b_r.unsqueeze(1) + variable11
+        q_target = b_r.unsqueeze(1) + q_update
         # q_target = b_r + GAMMA * q_next.max(1)[0]   # shape (batch, 1)
         with torch.no_grad():
             A, V = self.eval_net(b_s.cuda())
