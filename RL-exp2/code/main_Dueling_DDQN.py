@@ -158,8 +158,8 @@ class DQN():
         q_eval = (A + V - torch.mean(A, dim=-1, keepdim=True)).gather(1, b_a.unsqueeze(1).cuda())
         loss = self.loss_func(q_eval, q_target.cuda())
         self.optimizer.zero_grad()
-        loss.backward()
         loss.requires_grad_(True)
+        loss.backward()
         self.optimizer.step()
         self.update_network_parameters()
 
