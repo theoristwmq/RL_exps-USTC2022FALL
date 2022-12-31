@@ -155,7 +155,7 @@ class DQN():
         # q_target = b_r + GAMMA * q_next.max(1)[0]   # shape (batch, 1)
         with torch.no_grad():
             A, V = self.eval_net(b_s.cuda())
-        q_eval = (A + V - torch.mean(A, dim=-1, keepdim=True)).q_next.max(1)[0].view(BATCH_SIZE, 1)
+        q_eval = (A + V - torch.mean(A, dim=-1, keepdim=True)).max(1)[0].view(BATCH_SIZE, 1)
         loss = self.loss_func(q_eval, q_target.cuda())
         self.optimizer.zero_grad()
         loss.requires_grad_(True)
