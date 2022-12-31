@@ -144,7 +144,6 @@ class DQN():
         loss = self.loss_func(q_eval, q_target.detach())
         self.optimizer.zero_grad()
         loss.backward()
-        loss.requires_grad_(True)
         self.optimizer.step()
         self.update_network_parameters()
 
