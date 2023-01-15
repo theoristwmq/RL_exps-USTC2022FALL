@@ -146,7 +146,7 @@ def main():
     writer = SummaryWriter('./log/dqn')
     TEST = False
     if TEST:
-        dqn.load_model('./model/DQN.pt')
+        dqn.load_model('./model/3120000.pt')
     print("Collecting Experience....")
     for i in range(episodes):
         print("EPISODE: ", i)
